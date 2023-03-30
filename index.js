@@ -9,31 +9,24 @@ const generateSVG = require('./lib/generateSVG')
 const package = require('./package.json')
 const shapes = require('./lib/shapes')
 
-// Function to write README file using the user input
-function writeToFile(fileName, data) {
-  console.log('Generating SVG...')
-  return fs.writeFileSync(path.join(process.cwd(), fileName), data);
-}
-
 //set argument options
 program
-  .option('-r, --randomize', 'Randomize logo options')
-  // .option('-d, --debug', 'output extra debugging')
-  // .option('-s, --small <size>', 'small pizza size')
-  // .option('-p, --pizza-type <type>', 'flavour of pizza');
+  .option('-R, --randomize', 'Randomize logo options, if used other switches will be ignored')
+  .option('-s, --shape <shape>', 'Sets logo shape')
+  .option('-sc, --shape-color <shapecolor>', 'Sets shape color for logo')
+  .option('-t, --text <text>', 'Sets logo text')
+  .option('-tc, --text-color <textcolor>', 'Sets text color for logo')
 
 program.parse(process.argv);
 const options = program.opts();
-// if (options.debug) console.log(options);
-// if (options.small) console.log(options.small);
-// if (options.pizzaType) console.log(options.pizzaType);
 
 //handle arguments
+//if random is used skip everything and randomize logo
 if (options.randomize){
   writeToFile('randomlogo.svg', generateSVG({ ...randomizeLogo() }));
 }else{
   //questions for user if arguments were not provided.
-  questions = [
+ var questions = [
     {
       type: 'maxlength-input',
       name: 'text',
@@ -58,8 +51,31 @@ if (options.randomize){
     },
   ]
 
-  //prompt user for input and write file
+  //delete questions that had answers provided by switches
+  if (options.shape) removeQuestion('shape')
+  if (options.shapeColor) removeQuestion('shapeColor')
+  if (options.text) removeQuestion('text')
+  if (options.textColor) removeQuestion('textColor')
+  
+  //prompt user for values not provided by switches
+  //insert switch values into responses and write file
   inquirer.prompt(questions).then((inquirerResponses) => {
+    if (options.shape) inquirerResponses.shape = options.shape
+    if (options.text) inquirerResponses.text = options.text
+    if (options.shapeColor) inquirerResponses.shapeColor = options.shapeColor
+    if (options.textColor) inquirerResponses.textColor = options.textColor
+    console.log(inquirerResponses)
     writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
   });
+}
+
+// Function to write README file using the user input
+function writeToFile(fileName, data) {
+  console.log('Generating SVG...')
+  return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+}
+
+// Function for removing questions
+function removeQuestion(value){
+  questions = questions.filter(obj => obj.name !== value)
 }
