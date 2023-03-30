@@ -4,17 +4,16 @@ const program = require('commander');
 const inquirer = require('inquirer')
 const maxinput = require('inquirer-maxlength-input-prompt')
 inquirer.registerPrompt('maxlength-input', maxinput)
-const randomizeLogo = require('./lib/randomLogo.js')
+const {randomizeLogo, colors} = require('./lib/randomLogo.js')
 const generateSVG = require('./lib/generateSVG')
-const package = require('./package.json')
-const shapes = require('./lib/shapes')
+const shapes = ['circle', 'triangle', 'square', 'ellipse']
 
 //set argument options
 program
   .option('-R, --randomize', 'Randomize logo options, if used other switches will be ignored')
   .option('-s, --shape <shape>', 'Sets logo shape')
   .option('-sc, --shape-color <shapecolor>', 'Sets shape color for logo')
-  .option('-t, --text <text>', 'Sets logo text')
+  .option('-t, --text <text>', 'Sets logo text, only allows 3 letters anything more will be truncated')
   .option('-tc, --text-color <textcolor>', 'Sets text color for logo')
 
 program.parse(process.argv);
@@ -61,11 +60,11 @@ if (options.randomize){
   //insert switch values into responses and write file
   inquirer.prompt(questions).then((inquirerResponses) => {
     if (options.shape) inquirerResponses.shape = options.shape
-    if (options.text) inquirerResponses.text = options.text
+    if (options.text) inquirerResponses.text = options.text.slice(0,3)
     if (options.shapeColor) inquirerResponses.shapeColor = options.shapeColor
     if (options.textColor) inquirerResponses.textColor = options.textColor
     console.log(inquirerResponses)
-    writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
+    // writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
   });
 }
 
