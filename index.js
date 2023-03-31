@@ -15,6 +15,7 @@ program
   .option('-sc, --shape-color <shapecolor>', 'Sets shape color for logo')
   .option('-t, --text <text>', 'Sets logo text, only allows 3 letters anything more will be truncated')
   .option('-tc, --text-color <textcolor>', 'Sets text color for logo')
+  .option('-bc, --border-color <color>', 'Sets the border color, no border if left out')
 
 program.parse(process.argv);
 const options = program.opts();
@@ -22,7 +23,7 @@ const options = program.opts();
 //handle arguments
 //if random is used skip everything and randomize logo
 if (options.randomize){
-  writeToFile('randomlogo.svg', generateSVG({ ...randomizeLogo() }));
+   writeToFile(`./examples/randomlogo.svg`, generateSVG({ ...randomizeLogo() }));
 }else{
   //questions for user if arguments were not provided.
  var questions = [
@@ -63,8 +64,9 @@ if (options.randomize){
     if (options.text) inquirerResponses.text = options.text.slice(0,3)
     if (options.shapeColor) inquirerResponses.shapeColor = options.shapeColor
     if (options.textColor) inquirerResponses.textColor = options.textColor
+    if (options.borderColor) inquirerResponses.borderColor = options.borderColor
     console.log(inquirerResponses)
-    // writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
+    writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
   });
 }
 

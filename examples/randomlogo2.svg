@@ -1,0 +1,6 @@
+<?xml version="1.0" standalone="no"?>
+<svg width="300px" height="200px" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <polygon points="150,0 0,200 300,200" fill="linen" stroke="orange" />
+	<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="orchid" style='font-size:48px'>Bwk</text>
+</svg>
