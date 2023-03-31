@@ -23,7 +23,7 @@ const options = program.opts();
 //handle arguments
 //if random is used skip everything and randomize logo
 if (options.randomize){
-   writeToFile(`./examples/randomlogo.svg`, generateSVG({ ...randomizeLogo() }));
+   writeToFile(`randomlogo.svg`, generateSVG({ ...randomizeLogo() }));
 }else{
   //questions for user if arguments were not provided.
  var questions = [
@@ -62,12 +62,6 @@ if (options.randomize){
     for (const [key, value] of Object.entries(options)) {
       if (options[key]) inquirerResponses[key] = value
     }
-    // if (options.shape) inquirerResponses.shape = options.shape
-    // if (options.text) inquirerResponses.text = options.text.slice(0,3)
-    // if (options.shapeColor) inquirerResponses.shapeColor = options.shapeColor
-    // if (options.textColor) inquirerResponses.textColor = options.textColor
-    // if (options.borderColor) inquirerResponses.borderColor = options.borderColor
-    console.log(inquirerResponses)
     writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
   });
 }
