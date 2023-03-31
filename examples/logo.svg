@@ -1,7 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <svg width="300px" height="200px" version="1.1"
      xmlns="http://www.w3.org/2000/svg">
-  <desc>Four separate rectangles</desc>
   <polygon points="150,1 299,199 1,199" fill="orange" />
 <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="green" style='font-size:48px'>AAA</text>
 </svg>
