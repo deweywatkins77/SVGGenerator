@@ -59,8 +59,10 @@ if (options.randomize){
   //prompt user for values not provided by switches
   //insert switch values into responses and write file
   inquirer.prompt(questions).then((inquirerResponses) => {
-    for (const [key, value] of Object.entries(options)) {
-      if (options[key]) inquirerResponses[key] = value
+    for (let [key, value] of Object.entries(options)) {
+      //limit 3 characters for text key only
+      if (key == 'text') value = value.slice(0,3)
+      inquirerResponses[key] = value
     }
     writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
   });
