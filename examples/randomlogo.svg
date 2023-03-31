@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <svg width="300px" height="200px" version="1.1"
      xmlns="http://www.w3.org/2000/svg">
-  <polygon points="150,0 0,200 300,200" fill="burlywood" stroke="lightcyan" />
-	<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="azure" style='font-size:48px'>Vec</text>
+  <circle cx="150" cy="100" r="100" fill="lawngreen" stroke="wheat" />
+	<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="firebrick" style='font-size:48px'>gcS</text>
 </svg>
