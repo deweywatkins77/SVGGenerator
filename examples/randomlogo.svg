@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <svg width="300px" height="200px" version="1.1"
      xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="0" width="300" height="200" fill="steelblue" stroke="darkgreen" />
-	<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="tan" style='font-size:48px'>Njf</text>
+  <polygon points="150,0 0,200 300,200" fill="burlywood" stroke="lightcyan" />
+	<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="azure" style='font-size:48px'>Vec</text>
 </svg>

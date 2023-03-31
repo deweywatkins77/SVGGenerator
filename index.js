@@ -52,19 +52,21 @@ if (options.randomize){
   ]
 
   //delete questions that had answers provided by switches
-  if (options.shape) removeQuestion('shape')
-  if (options.shapeColor) removeQuestion('shapeColor')
-  if (options.text) removeQuestion('text')
-  if (options.textColor) removeQuestion('textColor')
+  for (const [key, value] of Object.entries(options)) {
+    if (options[key]) removeQuestion(key)
+  }
   
   //prompt user for values not provided by switches
   //insert switch values into responses and write file
   inquirer.prompt(questions).then((inquirerResponses) => {
-    if (options.shape) inquirerResponses.shape = options.shape
-    if (options.text) inquirerResponses.text = options.text.slice(0,3)
-    if (options.shapeColor) inquirerResponses.shapeColor = options.shapeColor
-    if (options.textColor) inquirerResponses.textColor = options.textColor
-    if (options.borderColor) inquirerResponses.borderColor = options.borderColor
+    for (const [key, value] of Object.entries(options)) {
+      if (options[key]) inquirerResponses[key] = value
+    }
+    // if (options.shape) inquirerResponses.shape = options.shape
+    // if (options.text) inquirerResponses.text = options.text.slice(0,3)
+    // if (options.shapeColor) inquirerResponses.shapeColor = options.shapeColor
+    // if (options.textColor) inquirerResponses.textColor = options.textColor
+    // if (options.borderColor) inquirerResponses.borderColor = options.borderColor
     console.log(inquirerResponses)
     writeToFile('logo.svg', generateSVG({ ...inquirerResponses }));
   });
